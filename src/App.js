@@ -1,17 +1,20 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Header from './Common/Header'
-import { MainContainer } from './Components'
+import { CreateItem, MainContainer } from './Components'
+import { AnimatePresence } from 'framer-motion'
 
 const App = () => {
   return (
-    <div className='bg-red-300 h-screen flex justify-center items-center text-lg'>
-      <Header />
-
-      <Routes>
-        <Route path='/' element={<MainContainer />} />
-      </Routes>
-    </div>
+    <AnimatePresence>
+      <div className='w-screen h-auto flex flex-col'>
+        <Header />
+        <Routes>
+          <Route path='/' element={<MainContainer />} />
+          <Route path='/createItem' element={<CreateItem />} />
+        </Routes>
+      </div>
+    </AnimatePresence>
   )
 }
 

@@ -549,6 +549,10 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.inline {
+  display: inline;
+}
+
 .flex {
   display: flex;
 }
