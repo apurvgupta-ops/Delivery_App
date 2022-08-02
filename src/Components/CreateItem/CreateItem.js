@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   MdAttachMoney,
@@ -16,7 +16,9 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { storage } from "../../firebase.config";
-import { saveItem } from "../../utils/FirebaseData";
+import { getAllFoodItems, saveItem } from "../../utils/FirebaseData";
+import { useStateValue } from "../../Context/StateProvider";
+import { actionType } from "../../Context/reducer";
 
 const CreateItem = () => {
   const [title, setTitle] = useState("");
@@ -28,6 +30,7 @@ const CreateItem = () => {
   const [alertStatus, setAlertStatus] = useState("danger");
   const [msg, setMSg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [{ foodItems }, dispatch] = useStateValue();
 
   const uploadImage = (e) => {
     setIsLoading(true);
@@ -129,7 +132,16 @@ const CreateItem = () => {
       }
     } catch (error) {
       console.log(error);
+      setFields(true);
+      setMSg("Error while deleting : Try again 🙇");
+      setAlertStatus("danger");
+      setTimeout(() => {
+        setFields(false);
+        setIsLoading(false);
+      }, 4000);
     }
+
+    fetchData();
   };
   const clearData = () => {
     setTitle("");
@@ -138,6 +150,17 @@ const CreateItem = () => {
     setPrice("");
     setCalories("Select Category");
   };
+
+  const fetchData = async () => {
+    await getAllFoodItems().then((data) => {
+      console.log(data);
+      dispatch({
+        type: actionType.SET_FOOD_ITEMS,
+        foodItems: data,
+      });
+    });
+  };
+
   return (
     <AnimatePresence>
       <div className="flex flex-col items-center justify-center">
