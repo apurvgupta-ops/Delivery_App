@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import React, { useEffect, useRef } from "react";
 import { MdShoppingBasket } from "react-icons/md";
+import NotFound from "../../img/NotFound.svg";
 
 const Dishes = ({ flag, data, scrollView }) => {
   //   console.log(data);
@@ -15,10 +16,10 @@ const Dishes = ({ flag, data, scrollView }) => {
       className={`w-full flex items-center gap-3 my-12 scroll-smooth ${
         flag
           ? "overflow-x-scroll scrollbar-none"
-          : "overflow-x-hidden flex-wrap"
+          : "overflow-x-hidden flex-wrap justify-center"
       }`}
     >
-      {data &&
+      {data && data.length > 0 ? (
         data.map((item) => (
           <div
             key={item.id}
@@ -51,7 +52,13 @@ const Dishes = ({ flag, data, scrollView }) => {
               </div>
             </div>
           </div>
-        ))}
+        ))
+      ) : (
+        <div className="w-80">
+          <img src={NotFound} className="w-full" alt="" />
+          <p className="text-center">No items Available</p>
+        </div>
+      )}
     </div>
   );
 };
