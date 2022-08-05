@@ -151,8 +151,8 @@ const CreateItem = () => {
     setCalories("Select Category");
   };
 
-  const fetchData = async () => {
-    await getAllFoodItems().then((data) => {
+  const fetchData = () => {
+    getAllFoodItems().then((data) => {
       console.log(data);
       dispatch({
         type: actionType.SET_FOOD_ITEMS,

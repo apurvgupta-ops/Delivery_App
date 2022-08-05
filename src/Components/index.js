@@ -3,3 +3,5 @@ export { default as CreateItem } from "./CreateItem/CreateItem";
 export { default as HomeContainer } from "./HomeContainer";
 export { default as Dishes } from "./New Dishes/Dishes";
 export { default as MenuContainer } from "./Menu Item/MenuContainer";
+export { default as CartContainer } from "./CartContainer";
+export { default as CartItems } from "./CartItems/CartItems";
